@@ -204,12 +204,39 @@ node makeAdmin.js your-email@university.edu
 5. **Rate limiting** - Already configured, adjust if needed
 6. **Input validation** - All inputs validated with Joi schemas
 
+## 📤 Push to GitHub
+
+### Quick Commands
+```bash
+cd LOSTNFOUND
+git init
+git add .
+git commit -m "Initial commit: CampusFound Platform"
+git remote add origin https://github.com/YOUR_USERNAME/campusfound.git
+git branch -M main
+git push -u origin main
+```
+
+**Important:** Replace `YOUR_USERNAME` with your GitHub username!
+
+### What's Included
+- ✅ `.gitignore` configured (excludes .env, node_modules, uploads)
+- ✅ `.env.example` files for both backend and frontend
+- ✅ All source code and documentation
+
+### What's Excluded
+- ❌ `.env` files (secrets)
+- ❌ `node_modules/` folders
+- ❌ `uploads/` folder contents
+
+---
+
 ## 🚀 Deployment
 
 See [DEPLOYMENT_CHECKLIST.md](./DEPLOYMENT_CHECKLIST.md) for complete deployment guide.
 
 **Quick Deploy:**
-1. Push code to GitHub
+1. Push code to GitHub (see above)
 2. Deploy backend to Render.com
 3. Deploy frontend to Vercel
 4. Configure environment variables
