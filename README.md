@@ -136,17 +136,11 @@ VITE_SOCKET_URL=https://your-backend.onrender.com
 
 ## 👨‍💼 Making Yourself Admin
 
-### Method 1: MongoDB Atlas Dashboard
 1. Go to MongoDB Atlas → Browse Collections
 2. Find `students` collection
 3. Locate your user by email
 4. Edit document and add: `"role": "admin"`
-
-### Method 2: Using makeAdmin Script
-```bash
-cd backend
-node makeAdmin.js your-email@university.edu
-```
+5. Save changes
 
 ## 📊 API Endpoints
 
