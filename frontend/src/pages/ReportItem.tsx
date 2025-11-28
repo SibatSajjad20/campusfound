@@ -33,6 +33,14 @@ const ReportItem: React.FC = () => {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        toast.error('Image size must be less than 5MB');
+        return;
+      }
+      if (!file.type.startsWith('image/')) {
+        toast.error('Please upload an image file');
+        return;
+      }
       setFormData(prev => ({ ...prev, image: file }));
       const reader = new FileReader();
       reader.onloadend = () => setImagePreview(reader.result as string);
@@ -59,7 +67,8 @@ const ReportItem: React.FC = () => {
       if (formData.image) submitData.append('image', formData.image);
 
       await api.post('/items/report', submitData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
+        headers: { 'Content-Type': 'multipart/form-data' },
+        timeout: 60000
       });
 
       toast.success(`✓ ${type === 'lost' ? 'Lost' : 'Found'} item reported successfully! Waiting for admin approval.`);
