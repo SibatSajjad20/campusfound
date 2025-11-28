@@ -22,16 +22,11 @@ export const AuthProvider = ({ children }) => {
 
   const checkAuthStatus = async () => {
     try {
-      // Check if user data exists in localStorage
       const userData = localStorage.getItem('userData');
       const userToken = localStorage.getItem('token');
-      if (userData) {
+      if (userData && userToken) {
         setUser(JSON.parse(userData));
         setToken(userToken);
-      } else {
-        // Try to fetch user data to verify authentication
-        await api.get('/items/lost');
-        setUser({ authenticated: true });
       }
     } catch (error) {
       console.log('Not authenticated');
