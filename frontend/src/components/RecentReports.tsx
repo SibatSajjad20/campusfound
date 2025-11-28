@@ -18,7 +18,7 @@ const items = [
     location: 'Gym Locker Room',
     date: '5 hours ago',
     type: 'found' as const,
-    image: 'https://images.unsplash.com/photo-1602143407151-0111d25649e8?auto=format&fit=crop&w=500&q=80'
+    image: 'https://images.unsplash.com/photo-1602143407151-7111d25649e8?auto=format&fit=crop&w=500&q=80'
   },
   {
     id: '3',
