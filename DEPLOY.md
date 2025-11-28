@@ -28,12 +28,12 @@
 ```
 NODE_ENV=production
 PORT=3000
-DB_URI=mongodb+srv://sibat:sibat123@cluster0.te6hv1r.mongodb.net/LostNFound
-JWT_SECRET=8f9a2c5d7e1b3f6g9h4j1k8m5n2p7q0r3s6t9u1v4w8x0y5z2a7b9c1d3e6f
-CLOUDINARY_CLOUD_NAME=da3i4l1st
-CLOUDINARY_API_KEY=167141761881629
-CLOUDINARY_API_SECRET=6JnnyUxbq7Mdj0wBFaP4rqBxJnw
-HF_TOKEN=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
+DB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret_here
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+HF_TOKEN=your_huggingface_token
 FRONTEND_URL=https://your-app.vercel.app
 ```
 
@@ -84,12 +84,12 @@ Add these one by one:
 ```
 NODE_ENV=production
 PORT=3000
-DB_URI=mongodb+srv://sibat:sibat123@cluster0.te6hv1r.mongodb.net/LostNFound
-JWT_SECRET=8f9a2c5d7e1b3f6g9h4j1k8m5n2p7q0r3s6t9u1v4w8x0y5z2a7b9c1d3e6f
-CLOUDINARY_CLOUD_NAME=da3i4l1st
-CLOUDINARY_API_KEY=167141761881629
-CLOUDINARY_API_SECRET=6JnnyUxbq7Mdj0wBFaP4rqBxJnw
-HF_TOKEN=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
+DB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret_here
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+HF_TOKEN=your_huggingface_token
 FRONTEND_URL=https://your-app.vercel.app
 ```
 
