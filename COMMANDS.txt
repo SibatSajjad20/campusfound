@@ -1,0 +1,215 @@
+═══════════════════════════════════════════════════════════════
+  📋 CAMPUSFOUND - COMMAND REFERENCE
+═══════════════════════════════════════════════════════════════
+
+
+🧹 CLEAN & SETUP
+────────────────────────────────────────────────────────────────
+
+Clean everything and create admin (ONE COMMAND):
+    cd backend && npm run setup-production
+
+Clean database only:
+    cd backend && npm run clean
+
+Create admin only:
+    cd backend && npm run create-admin
+
+Make existing user admin:
+    cd backend && node makeAdmin.js email@example.com
+
+
+💻 DEVELOPMENT
+────────────────────────────────────────────────────────────────
+
+Start backend (development):
+    cd backend && npm run dev
+
+Start frontend (development):
+    cd frontend && npm run dev
+
+Start both (2 terminals):
+    Terminal 1: cd backend && npm run dev
+    Terminal 2: cd frontend && npm run dev
+
+
+🚀 PRODUCTION
+────────────────────────────────────────────────────────────────
+
+Start backend (production):
+    cd backend && npm start
+
+Build frontend:
+    cd frontend && npm run build
+
+Preview frontend build:
+    cd frontend && npm run preview
+
+
+📦 INSTALLATION
+────────────────────────────────────────────────────────────────
+
+Install backend dependencies:
+    cd backend && npm install
+
+Install frontend dependencies:
+    cd frontend && npm install
+
+Install both:
+    cd backend && npm install && cd ../frontend && npm install
+
+
+🔧 MAINTENANCE
+────────────────────────────────────────────────────────────────
+
+Check for vulnerabilities:
+    npm audit
+
+Fix vulnerabilities:
+    npm audit fix
+
+Update dependencies:
+    npm update
+
+
+🗂️ GIT COMMANDS
+────────────────────────────────────────────────────────────────
+
+Check status:
+    git status
+
+Add all files:
+    git add .
+
+Commit:
+    git commit -m "Your message"
+
+Push to GitHub:
+    git push origin main
+
+Pull latest:
+    git pull origin main
+
+
+🌐 DEPLOYMENT
+────────────────────────────────────────────────────────────────
+
+Deploy frontend to Vercel (CLI):
+    cd frontend && vercel --prod
+
+Deploy frontend to Vercel (first time):
+    cd frontend && vercel
+
+Check Vercel deployments:
+    vercel ls
+
+
+🔍 TESTING
+────────────────────────────────────────────────────────────────
+
+Test backend locally:
+    cd backend && npm run dev
+    # Visit: http://localhost:3000/health
+
+Test frontend locally:
+    cd frontend && npm run dev
+    # Visit: http://localhost:5173
+
+Test production build:
+    cd frontend && npm run build && npm run preview
+
+
+📊 MONITORING
+────────────────────────────────────────────────────────────────
+
+View backend logs (Render):
+    # Go to Render dashboard → Your service → Logs
+
+View frontend logs (Vercel):
+    # Go to Vercel dashboard → Your project → Deployments → Logs
+
+Check MongoDB metrics:
+    # Go to MongoDB Atlas → Metrics
+
+Check Cloudinary usage:
+    # Go to Cloudinary → Dashboard
+
+
+🆘 TROUBLESHOOTING
+────────────────────────────────────────────────────────────────
+
+Backend won't start:
+    # Check .env file exists
+    # Verify all env vars are set
+    # Check MongoDB connection string
+
+Frontend won't start:
+    # Delete node_modules: rm -rf node_modules
+    # Reinstall: npm install
+    # Clear cache: npm cache clean --force
+
+Database connection failed:
+    # Check DB_URI in .env
+    # Verify MongoDB Atlas IP whitelist (0.0.0.0/0)
+    # Test connection: node -e "require('./db/db').connectDb()"
+
+Images not uploading:
+    # Check Cloudinary credentials in .env
+    # Verify uploads folder exists: mkdir uploads
+    # Check Cloudinary dashboard for errors
+
+
+🔐 SECURITY
+────────────────────────────────────────────────────────────────
+
+Generate JWT secret:
+    node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
+
+Check for security issues:
+    npm audit
+
+Fix security issues:
+    npm audit fix
+
+
+📁 FILE LOCATIONS
+────────────────────────────────────────────────────────────────
+
+Backend env file:
+    backend/.env
+
+Frontend env file:
+    frontend/.env
+
+Backend env example:
+    backend/.env.example
+
+Frontend env example:
+    frontend/.env.example
+
+Deployment guide:
+    DEPLOYMENT_CHECKLIST.md
+
+Cleanup guide:
+    CLEAN_AND_SETUP.md
+
+Quick start:
+    QUICK_START_PRODUCTION.txt
+
+
+═══════════════════════════════════════════════════════════════
+
+🎯 MOST USED COMMANDS
+
+Setup for production:
+    cd backend && npm run setup-production
+
+Start development:
+    cd backend && npm run dev
+    cd frontend && npm run dev
+
+Deploy:
+    git add . && git commit -m "Update" && git push
+    cd frontend && vercel --prod
+
+═══════════════════════════════════════════════════════════════
