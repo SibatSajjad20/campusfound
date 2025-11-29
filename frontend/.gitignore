@@ -13,9 +13,6 @@ dist-ssr/
 .env.production
 .env.development
 
-# Default images (not needed in repo)
-defaultItemImages/
-
 # Logs
 logs/
 *.log
