@@ -10,7 +10,7 @@ if (!API_BASE_URL) {
 const api = axios.create({
   baseURL: API_BASE_URL,
   withCredentials: true,
-  timeout: 60000,
+  timeout: 90000,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -19,9 +19,14 @@ const api = axios.create({
 // Configure retry logic
 axiosRetry(api, {
   retries: 5,
-  retryDelay: (retryCount) => retryCount * 2000,
+  retryDelay: (retryCount) => Math.min(retryCount * 3000, 10000),
   retryCondition: (error) => {
-    return axiosRetry.isNetworkError(error) || error.response?.status === 429 || error.response?.status === 503 || error.code === 'ECONNABORTED';
+    return axiosRetry.isNetworkError(error) || 
+           error.response?.status === 429 || 
+           error.response?.status === 503 || 
+           error.response?.status === 502 ||
+           error.code === 'ECONNABORTED' ||
+           error.code === 'ERR_NETWORK';
   },
 });
 

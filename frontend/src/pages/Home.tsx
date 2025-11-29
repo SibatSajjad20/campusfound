@@ -37,10 +37,16 @@ const Home: React.FC = () => {
 
   const fetchItems = async () => {
     try {
-      const response = await api.get('/items/all');
+      const response = await api.get('/items/all', { timeout: 90000 });
       setItems(response.data.items || []);
-    } catch (error) {
-      toast.error('Failed to load items');
+    } catch (error: any) {
+      console.error('Fetch items error:', error);
+      if (error.code === 'ECONNABORTED' || error.code === 'ERR_NETWORK') {
+        toast.error('Slow connection. Please wait...');
+        setTimeout(() => fetchItems(), 3000);
+      } else {
+        toast.error('Failed to load items. Pull to refresh.');
+      }
     } finally {
       setLoading(false);
     }

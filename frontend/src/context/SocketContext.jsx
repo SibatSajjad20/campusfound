@@ -23,27 +23,31 @@ export const SocketProvider = ({ children }) => {
       
       const newSocket = io(SOCKET_URL, {
         withCredentials: true,
-        transports: ['websocket', 'polling'],
+        transports: ['polling', 'websocket'],
         reconnection: true,
-        reconnectionAttempts: 5,
-        reconnectionDelay: 1000
+        reconnectionAttempts: 3,
+        reconnectionDelay: 2000,
+        timeout: 10000
       });
 
       newSocket.on('connect', () => {
-        if (import.meta.env.DEV) console.log('Connected to server');
+        console.log('Connected to server');
         setSocket(newSocket);
       });
 
       newSocket.on('connect_error', (error) => {
-        console.error('Socket connection error:', error.message);
+        console.log('Socket connection failed, chat will work in polling mode');
+        setSocket(null);
       });
 
       newSocket.on('disconnect', () => {
-        if (import.meta.env.DEV) console.log('Disconnected from server');
+        console.log('Disconnected from server');
       });
 
       return () => {
-        newSocket.close();
+        if (newSocket) {
+          newSocket.close();
+        }
         setSocket(null);
       };
     }
