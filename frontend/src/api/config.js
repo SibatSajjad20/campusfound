@@ -10,7 +10,7 @@ if (!API_BASE_URL) {
 const api = axios.create({
   baseURL: API_BASE_URL,
   withCredentials: true,
-  timeout: 30000,
+  timeout: 60000,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -18,10 +18,10 @@ const api = axios.create({
 
 // Configure retry logic
 axiosRetry(api, {
-  retries: 3,
-  retryDelay: (retryCount) => retryCount * 1000,
+  retries: 5,
+  retryDelay: (retryCount) => retryCount * 2000,
   retryCondition: (error) => {
-    return axiosRetry.isNetworkError(error) || error.response?.status === 429 || error.response?.status === 503;
+    return axiosRetry.isNetworkError(error) || error.response?.status === 429 || error.response?.status === 503 || error.code === 'ECONNABORTED';
   },
 });
 
@@ -44,14 +44,14 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem('token');
-      localStorage.removeItem('userData');
-      if (!window.location.pathname.includes('/login') && !window.location.pathname.includes('/register')) {
-        window.location.href = '/login';
+      const currentPath = window.location.pathname;
+      if (!currentPath.includes('/login') && !currentPath.includes('/register') && currentPath !== '/') {
+        localStorage.removeItem('token');
+        localStorage.removeItem('userData');
+        window.location.href = '/';
       }
     }
     
-    // Provide user-friendly error messages
     if (!error.response) {
       error.message = 'Network error. Please check your connection.';
     } else if (error.response.status >= 500) {

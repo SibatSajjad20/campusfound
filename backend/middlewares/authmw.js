@@ -15,7 +15,7 @@ const validateMW = (schema) => (req, res, next) => {
 };
 
 const protectRoute = (req, res, next) => {
-  const token = req.cookies.token;
+  const token = req.cookies.token || req.headers.authorization?.split(' ')[1];
   if (!token) {
     return res.status(401).json({
       msg: "Access Denied, Please Login",
@@ -25,7 +25,7 @@ const protectRoute = (req, res, next) => {
   try {
     const verifyToken = jwt.verify(token, JWT_SECRET);
     req.std = verifyToken;
-    req.user = verifyToken; // Alias for consistency
+    req.user = verifyToken;
     next();
   } catch (err) {
     return res.status(401).json({
