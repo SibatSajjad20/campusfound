@@ -43,44 +43,49 @@ const Chat: React.FC = () => {
   useEffect(() => {
     if (selectedChat) {
       loadMessages(selectedChat._id);
-      if (socket) {
+      if (socket?.connected) {
         socket.emit('join-conversation', selectedChat._id);
       }
       setChats(prev => prev.map(chat => 
         chat._id === selectedChat._id ? { ...chat, hasUnread: false, unreadCount: 0 } : chat
       ));
     }
-  }, [selectedChat, socket]);
+  }, [selectedChat?._id, socket?.connected]);
 
   useEffect(() => {
-    if (socket) {
-      socket.on('new-message', (message: any) => {
-        if (selectedChat && message.conversationId === selectedChat._id) {
-          setMessages(prev => [...prev, message]);
-        }
-        setChats(prev => {
-          const updated = prev.map(chat => {
-            if (chat._id === message.conversationId) {
-              const isUnread = selectedChat?._id !== message.conversationId;
-              return { 
-                ...chat, 
-                lastMessage: message, 
-                updatedAt: message.createdAt, 
-                hasUnread: isUnread,
-                unreadCount: isUnread ? (chat.unreadCount || 0) + 1 : 0
-              };
-            }
-            return chat;
-          });
-          return updated.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
-        });
-      });
+    if (!socket) return;
 
-      return () => {
-        socket.off('new-message');
-      };
-    }
-  }, [socket, selectedChat]);
+    const handleNewMessage = (message: any) => {
+      if (selectedChat && message.conversationId === selectedChat._id) {
+        setMessages(prev => {
+          if (prev.some(m => m._id === message._id)) return prev;
+          return [...prev, message];
+        });
+      }
+      setChats(prev => {
+        const updated = prev.map(chat => {
+          if (chat._id === message.conversationId) {
+            const isUnread = selectedChat?._id !== message.conversationId;
+            return { 
+              ...chat, 
+              lastMessage: message, 
+              updatedAt: message.createdAt, 
+              hasUnread: isUnread,
+              unreadCount: isUnread ? (chat.unreadCount || 0) + 1 : 0
+            };
+          }
+          return chat;
+        });
+        return updated.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+      });
+    };
+
+    socket.on('new-message', handleNewMessage);
+
+    return () => {
+      socket.off('new-message', handleNewMessage);
+    };
+  }, [socket, selectedChat?._id]);
 
   const loadChats = async () => {
     try {

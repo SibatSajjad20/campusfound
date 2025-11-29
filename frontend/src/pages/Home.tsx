@@ -272,6 +272,14 @@ const ItemCard = ({ item, index }: { item: any; index: number }) => {
             src={getImageUrl(item.imageUrl) || ''}
             alt={`${item.type} item: ${item.title}`}
             loading="lazy"
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.style.display = 'none';
+              const parent = target.parentElement;
+              if (parent) {
+                parent.innerHTML = `<div class="w-full h-full bg-gradient-to-br from-violet-600/40 to-fuchsia-600/40 flex items-center justify-center"><div class="text-6xl sm:text-7xl lg:text-8xl font-bold text-white/90">${item.title.charAt(0).toUpperCase()}</div></div>`;
+              }
+            }}
             className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
           />
         ) : (
@@ -280,7 +288,16 @@ const ItemCard = ({ item, index }: { item: any; index: number }) => {
             <img 
               src={getDefaultImage(item.category)}
               alt={item.title}
-              className="w-36 h-36 object-contain z-10 opacity-95 transform group-hover:scale-110 transition-transform duration-700"
+              loading="lazy"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.style.display = 'none';
+                const parent = target.parentElement;
+                if (parent) {
+                  parent.innerHTML = `<div class="text-5xl sm:text-6xl lg:text-7xl font-bold text-white/90 z-20">${item.title.charAt(0).toUpperCase()}</div>`;
+                }
+              }}
+              className="w-24 h-24 sm:w-32 sm:h-32 lg:w-36 lg:h-36 object-contain z-10 opacity-95 transform group-hover:scale-110 transition-transform duration-700"
               style={{ filter: 'drop-shadow(0 8px 16px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 8px rgba(139, 92, 246, 0.3))' }}
             />
           </div>
