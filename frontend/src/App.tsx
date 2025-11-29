@@ -18,6 +18,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { SocketProvider } from "./context/SocketContext";
 import ErrorBoundary from "./components/ErrorBoundary";
+import { Analytics } from "@vercel/analytics/react";
 
 function App() {
   const location = useLocation();
@@ -78,6 +79,7 @@ function App() {
         }}
       />
       </SocketProvider>
+      <Analytics />
     </ErrorBoundary>
   );
 }
